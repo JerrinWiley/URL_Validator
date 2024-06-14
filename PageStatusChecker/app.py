@@ -117,15 +117,29 @@ class Validation(tk.Frame):
                 clicked.set(colNames[0])
 
                 drop = OptionMenu(self, clicked, *options)
+                print(valButtonState.get())
+                if valButtonState.get() == True:
+                    clicked.set('')
+                    drop["menu"].delete(0, "end")
+
+                    for item in options:
+                        print(item)
+                        drop["menu"].add_command(
+                            label=item,
+                            command=lambda: tk._setit(clicked, item))
+
                 if valButtonState.get() == False:
+                    drop = OptionMenu(self, clicked, *options)
                     drop.pack()
                     valButtonState.set(True)
-                column_button = Button(self, text = "Check row count", command = show).pack
+
 
                 def show():
                     label.config(text = clicked.get())
+                column_button = Button(self, text = "Check row count", command = show).pack
             except:
                 print("Error")
+              
             return
 
         # Function for opening the file explorer window
